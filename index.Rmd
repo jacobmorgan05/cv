@@ -1,22 +1,22 @@
 ---
-title: Jacob Morgan's Resume"
-author: Jacob Morgan
+title: "Nick Strayer's CV"
+author: Nick Strayer
 date: "`r Sys.Date()`"
 output:
   pagedown::html_resume:
-    css: ['css/custom_resume.css', 'css/styles.css', 'resume']
+    css: ['css/styles.css', 'resume']
     # set it to true for a self-contained HTML page but it'll take longer to render
     self_contained: true
 ---
-
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(
   results='asis', 
   echo = FALSE
 )
-library(tidyverse)
+
 library(glue)
+library(tidyverse)
 
 # Set this to true to have links turned into footnotes at the end of the document
 PDF_EXPORT <- FALSE
@@ -26,20 +26,21 @@ links <- c()
 
 source('parsing_functions.R')
 
+# Load csv with position info
+position_data <- read_csv('positions.csv')
+```
 
-# First let's get the data, filtering to only the items tagged as
-# Resume items
-position_data <- read_csv('positions.csv') %>% 
-  filter(in_resume) %>% 
-  mutate(
-    # Build some custom sections by collapsing others
-    section = case_when(
-      section %in% c('professional_positions') ~ 'positions', 
-      section %in% c('volunteer_positions') ~ 'volunteering',
-      TRUE ~ section
-    )
-  ) 
 
+```{r}
+# When in export mode the little dots are unaligned, so fix that. 
+if(PDF_EXPORT){
+  cat("
+  <style>
+  :root{
+    --decorator-outer-offset-left: -6.5px;
+  }
+  </style>")
+}
 ```
 
 
@@ -49,32 +50,45 @@ Aside
 
 ![logo](beta_dist.png){width=100%}
 
+```{r}
+# When in export mode the little dots are unaligned, so fix that. 
+if(PDF_EXPORT){
+  cat("View this CV online with links at _nickstrayer.me/cv_")
+} else {
+  cat("[<i class='fas fa-download'></i> Download a PDF of this CV](https://github.com/nstrayer/cv/raw/master/strayer_cv.pdf)")
+}
+```
+
 Contact {#contact}
 --------------------------------------------------------------------------------
 
 
-
-- <i class="fa fa-envelope"></i> jacobmorgan05@gmail.com
-- <i class="fa fa-github"></i> [github.com/jacobmorgan05](https://github.com/jacobmorgan05)
-- <i class="fa-brands fa-linkedin"></i> [My LinkedIn](https://www.linkedin.com/in/jacob-morgan-241400130/)
-- <i class="fa fa-phone"></i> (904) 235-8119
+- <i class="fa fa-envelope"></i> nick.strayer@gmail.com
+- <i class="fa fa-twitter"></i> NicholasStrayer
+- <i class="fa fa-github"></i> github.com/nstrayer
+- <i class="fa fa-link"></i> [nickstrayer.me](http://nickstrayer.me/)
+- <i class="fa fa-phone"></i> (734) 645-0110
 
 
 
 Language Skills {#skills}
 --------------------------------------------------------------------------------
 
-
 ```{r}
 skills <- tribble(
   ~skill,               ~level,
-  "R",                  2.5,
-  "HTML", 1.5,
-  "CSS",             1.5,
-  
+  "R",                  5,
+  "Javascript (d3.js)", 4.5,
+  "Python",             4,
+  "Bash",               3.5,
+  "SQL",                3,
+  "C++",                3,
+  "AWK",                3
 )
+
 build_skill_bars(skills)
 ```
+
 
 
 
@@ -82,9 +96,9 @@ build_skill_bars(skills)
 Disclaimer {#disclaimer}
 --------------------------------------------------------------------------------
 
-Made w/ [**pagedown**](https://github.com/rstudio/pagedown). 
+Made with the R package [**pagedown**](https://github.com/rstudio/pagedown). 
 
-Source code: [github.com/jacobmorgan05/cv](https://github.com/jacobmorgan05/cv).
+The source code is available at [github.com/nstrayer/cv](https://github.com/nstrayer/cv).
 
 Last updated on `r Sys.Date()`.
 
@@ -94,15 +108,15 @@ Last updated on `r Sys.Date()`.
 Main
 ================================================================================
 
-Jacob Morgan {#title}
+Nick Strayer {#title}
 --------------------------------------------------------------------------------
 
+
 ```{r}
-intro_text <- "As a Donor Relations and Database Specialist at Catholic Charities Eastern Washington, I process and manage thousands of dollars of donations every month, using Salesforce and other tools. I also support and communicate with our donors, conduct prospect research, and provide event assistance.
+intro_text <- "I have made [visualizations viewed by hundreds of thousands of people](https://www.nytimes.com/interactive/2016/08/26/us/college-student-migration.html), [sped up query times for 25 terabytes of data by an average of 4,800 times](https://livefreeordichotomize.com/2019/06/04/using_awk_and_r_to_parse_25tb/), and built [packages for R](https://github.com/nstrayer/shinysense) that let you [do magic](http://nickstrayer.me/dataDayTexas/).
 
-I am passionate about developing an organization's ability to grow and do good in the community, which is why I am pursuing a Master of Science in Program Evaluation and Data Analytics at ASU Watts College of Public Service & Community Solutions. I aim to apply my analytical skills and knowledge to measure and improve the effectiveness and efficiency of nonprofit programs and policies. 
+Currently searching for a data science position that allows me to build tools using visualization and machine learning to help people explore and understand their data. 
 "
-
 
 cat(sanitize_links(intro_text))
 ```
@@ -113,23 +127,104 @@ Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
 
 ```{r}
-position_data %>% print_section('education')
+print_section(position_data, 'education')
 ```
 
 
 
-Selected Positions {data-icon=suitcase}
+Research Experience {data-icon=laptop}
 --------------------------------------------------------------------------------
 
 ```{r}
-position_data %>% print_section('positions')
+print_section(position_data, 'research_positions')
 ```
 
-Volunteering {data-icon=handshake-angle}
+
+
+Industry Experience {data-icon=suitcase}
+--------------------------------------------------------------------------------
+
+::: aside
+I have worked in a variety of roles ranging from journalist to software engineer to data scientist. I like collaborative environments where I can learn from my peers. 
+:::
+
+```{r}
+print_section(position_data, 'industry_positions')
+```
+
+<br>
+<br>
+<br>
+
+Teaching Experience {data-icon=chalkboard-teacher}
+--------------------------------------------------------------------------------
+
+::: aside
+I am passionate about education. I believe that no topic is too complex if the teacher is empathetic and willing to think about new methods of approaching task. 
+:::
+
+```{r}
+print_section(position_data, 'teaching_positions')
+```
+
+
+Selected Data Science Writing {data-icon=chart-line}
 --------------------------------------------------------------------------------
 
 
+::: aside
+I regularly blog about data science and visualization on my blog [LiveFreeOrDichotomize.](https://livefreeordichotomize.com/)
+:::
+
 ```{r}
-position_data %>% print_section('volunteering')
+print_section(position_data, 'data_science_writings')
+```
+
+
+
+Selected Press (About)  {data-icon=newspaper}
+--------------------------------------------------------------------------------
+
+```{r}
+print_section(position_data, 'about_me_press')
+```
+
+
+
+Selected Press (By)  {data-icon=newspaper}
+--------------------------------------------------------------------------------
+
+```{r}
+print_section(position_data, 'by_me_press')
+```
+
+
+
+
+Selected Publications, Posters, and Talks {data-icon=book}
+--------------------------------------------------------------------------------
+
+```{r}
+print_section(position_data, 'academic_articles')
+```
+
+
+
+```{r}
+if(PDF_EXPORT){
+  cat("
+  
+Links {data-icon=link}
+--------------------------------------------------------------------------------
+
+<br>
+
+
+")
+  
+  walk2(links, 1:length(links), function(link, index){
+    print(glue('{index}. {link}'))
+  })
+}
 ```
 

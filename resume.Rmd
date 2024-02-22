@@ -1,6 +1,6 @@
 ---
-title: Nick Strayer's Resume"
-author: Nick Strayer
+title: Jacob Morgan's Resume"
+author: Jacob Morgan
 date: "`r Sys.Date()`"
 output:
   pagedown::html_resume:
@@ -34,8 +34,8 @@ position_data <- read_csv('positions.csv') %>%
   mutate(
     # Build some custom sections by collapsing others
     section = case_when(
-      section %in% c('research_positions', 'industry_positions') ~ 'positions', 
-      section %in% c('data_science_writings', 'by_me_press') ~ 'writings',
+      section %in% c('professional_positions') ~ 'positions', 
+      section %in% c('volunteer_positions') ~ 'volunteering',
       TRUE ~ section
     )
   ) 
@@ -54,11 +54,10 @@ Contact {#contact}
 
 
 
-- <i class="fa fa-envelope"></i> nick.strayer@gmail.com
-- <i class="fa fa-twitter"></i> NicholasStrayer
-- <i class="fa fa-github"></i> github.com/nstrayer
-- <i class="fa fa-link"></i> [nickstrayer.me](http://nickstrayer.me/)
-- <i class="fa fa-phone"></i> (734) 645-0110
+- <i class="fa fa-envelope"></i> jacobmorgan05@gmail.com
+- <i class="fa fa-github"></i> [github.com/jacobmorgan05](https://github.com/jacobmorgan05)
+- <i class="fa-brands fa-linkedin"></i> [My LinkedIn](https://www.linkedin.com/in/jacob-morgan-241400130/)
+- <i class="fa fa-phone"></i> (904) 235-8119
 
 
 
@@ -69,34 +68,15 @@ Language Skills {#skills}
 ```{r}
 skills <- tribble(
   ~skill,               ~level,
-  "R",                  5,
-  "Javascript (d3.js)", 4.5,
-  "Python",             4,
-  "Bash",               3.5,
-  "SQL",                3,
-  "C++",                3,
-  "AWK",                3
+  "R",                  2.5,
+  "HTML", 1.5,
+  "CSS",             1.5,
+  
 )
 build_skill_bars(skills)
 ```
 
 
-
-Open Source Contributions {#open-source}
---------------------------------------------------------------------------------
-
-All projects available at `github.com/nstrayer/<name>`
-
-
-- `shinysense`: R package to use sensor data in Shiny apps
-- `tuftesque`: Hugo theme (behind LiveFreeOrDichotomize.com)
-- `slid3r`: D3 add-on for fully svg slider inputs
-
-
-More info {#more-info}
---------------------------------------------------------------------------------
-
-See full CV at nickstrayer.me/cv for more complete list of positions and publications.
 
 
 Disclaimer {#disclaimer}
@@ -114,13 +94,13 @@ Last updated on `r Sys.Date()`.
 Main
 ================================================================================
 
-Nick Strayer {#title}
+Jacob Morgan {#title}
 --------------------------------------------------------------------------------
 
 ```{r}
-intro_text <- "I have made [visualizations viewed by hundreds of thousands of people](https://www.nytimes.com/interactive/2016/08/26/us/college-student-migration.html), [sped up query times for 25 terabytes of data by an average of 4,800 times](https://livefreeordichotomize.com/2019/06/04/using_awk_and_r_to_parse_25tb/), and built [packages for R](https://github.com/nstrayer/shinysense) that let you [do magic](http://nickstrayer.me/dataDayTexas/).
+intro_text <- "As a Donor Relations and Database Specialist at Catholic Charities Eastern Washington, I process and manage thousands of dollars of donations every month, using Salesforce and other tools. I also support and communicate with our donors, conduct prospect research, and provide event assistance.
 
-Currently searching for a data science position that allows me to build tools using visualization and machine learning to help people explore and understand their data. 
+I am passionate about developing an organization's ability to grow and do good in the community, which is why I am pursuing a Master of Science in Program Evaluation and Data Analytics at ASU Watts College of Public Service & Community Solutions. I aim to apply my analytical skills and knowledge to measure and improve the effectiveness and efficiency of nonprofit programs and policies. 
 "
 
 
@@ -145,12 +125,12 @@ Selected Positions {data-icon=suitcase}
 position_data %>% print_section('positions')
 ```
 
-Selected Writing {data-icon=newspaper}
+Volunteering {data-icon=handshake-angle}
 --------------------------------------------------------------------------------
 
 
 ```{r}
-position_data %>% print_section('writings')
+position_data %>% print_section('volunteering')
 ```
 
 
